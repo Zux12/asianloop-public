@@ -1,14 +1,29 @@
 :root{
-  --bg:#ffffff;
-  --card:#ffffff;
-  --text:#0f172a;          /* slate-900 */
-  --muted:#475569;         /* slate-600 */
-  --line:#e5e7eb;          /* gray-200 */
-  --brand:#2563eb;         /* blue-600 */
-  --brand-soft:#eff6ff;    /* blue-50 */
-  --accent:#16a34a;        /* green-600 */
-  --radius:14px;
+  /* ================= BRAND COLORS ================= */
+  --brand-primary: #1E2A5A;   /* Asianloop Blue */
+  --brand-secondary: #F2C94C; /* Asianloop Gold */
+  --brand-soft: rgba(30,42,90,0.06); /* Soft blue hover */
+
+  /* ================= NEUTRALS ================= */
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #0f172a;            /* slate-900 */
+  --muted: #475569;           /* slate-600 */
+  --line: #e5e7eb;            /* gray-200 */
+
+  /* ================= LINKS ================= */
+  --link: var(--brand-primary);
+  --link-hover: #16204a;
+
+  /* ================= STATUS ================= */
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+
+  --radius: 14px;
 }
+
+/* ================= RESET ================= */
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -19,7 +34,13 @@ body{
   background:var(--bg);
 }
 
-a{color:inherit;text-decoration:none}
+a{
+  color:var(--link);
+  text-decoration:none;
+}
+a:hover{
+  color:var(--link-hover);
+}
 
 .container{
   max-width:1200px;
@@ -51,6 +72,7 @@ header.site-header{
   gap:12px;
   font-weight:800;
   letter-spacing:0.3px;
+  color:var(--brand-primary);
 }
 .brand img{
   height:38px;
@@ -71,13 +93,15 @@ header.site-header{
 }
 .nav-links a:hover{
   background:var(--brand-soft);
-  color:var(--brand);
+  color:var(--brand-primary);
 }
 
 .nav-cta{
   display:flex;
   gap:10px;
 }
+
+/* ================= BUTTONS ================= */
 
 .btn{
   display:inline-flex;
@@ -95,11 +119,20 @@ header.site-header{
 }
 
 .btn.primary{
-  background:var(--brand);
-  border-color:var(--brand);
+  background:var(--brand-primary);
+  border-color:var(--brand-primary);
   color:#ffffff;
 }
 .btn.primary:hover{
+  background:#16204a;
+}
+
+.btn.secondary{
+  background:var(--brand-secondary);
+  border-color:var(--brand-secondary);
+  color:var(--brand-primary);
+}
+.btn.secondary:hover{
   filter:brightness(0.95);
 }
 
@@ -128,7 +161,7 @@ header.site-header{
 }
 
 .kicker{
-  color:var(--brand);
+  color:var(--brand-primary);
   font-weight:700;
   font-size:12px;
   letter-spacing:0.6px;
@@ -170,6 +203,7 @@ header.site-header{
   margin:0 0 12px;
   font-size:28px;
   font-weight:800;
+  color:var(--brand-primary);
 }
 
 .section p{
@@ -197,6 +231,7 @@ header.site-header{
 .card h3{
   margin:0 0 8px;
   font-size:18px;
+  color:var(--brand-primary);
 }
 
 .card p{
@@ -208,7 +243,7 @@ header.site-header{
   margin-top:14px;
 }
 
-/* ================= TAGS ================= */
+/* ================= TAGS / BADGES ================= */
 
 .tag{
   display:inline-flex;
@@ -218,9 +253,9 @@ header.site-header{
   font-size:12px;
   font-weight:600;
   border-radius:999px;
-  background:#f1f5f9;
-  color:#0f172a;
-  border:1px solid var(--line);
+  background:rgba(242,201,76,0.18);
+  color:var(--brand-primary);
+  border:1px solid rgba(242,201,76,0.5);
 }
 
 /* ================= FOOTER ================= */
