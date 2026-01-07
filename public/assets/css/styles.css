@@ -469,3 +469,40 @@ footer.site-footer{
   .two-col{ grid-template-columns: 1fr; }
   .cta-box{ flex-direction: column; align-items: flex-start; }
 }
+
+/* Credentials layout */
+.cred-grid{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cred-card{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cred-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cred-media{
+  border:1px solid var(--line);
+  border-radius: 12px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.cred-media img{
+  width:100%;
+  height: 260px;
+  object-fit: cover;
+  display:block;
+}
+
+@media (max-width: 900px){
+  .cred-grid{ grid-template-columns: 1fr; }
+  .cred-media img{ height: 240px; }
+}
