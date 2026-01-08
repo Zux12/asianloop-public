@@ -534,3 +534,33 @@ footer.site-footer{
 .maintenance-slider.is-fading::before{
   opacity: 1;
 }
+
+
+/* ===== Maintenance Slider Text Overlay ===== */
+.maintenance-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  pointer-events:none;
+}
+
+.maintenance-text{
+  margin:16px;
+  padding:10px 14px;
+  max-width: 80%;
+  background: rgba(255,255,255,0.92);
+  color: var(--brand-primary);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  line-height: 1.35;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+/* fade animation */
+.maintenance-text.is-fading{
+  opacity: 0;
+  transform: translateY(6px);
+}
