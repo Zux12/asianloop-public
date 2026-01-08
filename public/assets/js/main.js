@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let current = 0;
-  slider.style.backgroundImage = `url(${slides[current].img)}`;
+slider.style.backgroundImage = `url(${slides[current].img})`;
   textEl.textContent = slides[current].text;
 
   setInterval(() => {
