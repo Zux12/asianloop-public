@@ -588,3 +588,13 @@ footer.site-footer{
   background: #fff;
   padding: 12px;         /* makes it look like "paper" */
 }
+
+/* Align MoU with partner feature cards */
+.partner-features{
+  margin-top: 18px;
+}
+
+.partners-doc{
+  align-self: flex-start; /* stop vertical centering illusion */
+  margin-top: 18px;       /* match feature cards */
+}
