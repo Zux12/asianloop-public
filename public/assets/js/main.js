@@ -90,3 +90,33 @@ document.addEventListener("DOMContentLoaded", () => {
     applySlide(i);
   }, 6000);
 });
+
+
+/* ===== Maintenance Image Slider ===== */
+(function () {
+  const slider = document.querySelector('.maintenance-slider');
+  if (!slider) return;
+
+  const images = [
+    '/assets/img/placeholder-maintenance.jpg',
+    '/assets/img/placeholder-maintenance2.jpg',
+    '/assets/img/placeholder-maintenance3.jpg'
+  ];
+
+  let current = 0;
+  slider.style.backgroundImage = `url(${images[current]})`;
+
+  setInterval(() => {
+    const next = (current + 1) % images.length;
+
+    slider.style.setProperty('--maint-next', `url(${images[next]})`);
+    slider.classList.add('is-fading');
+
+    setTimeout(() => {
+      slider.style.backgroundImage = `url(${images[next]})`;
+      slider.classList.remove('is-fading');
+      current = next;
+    }, 900);
+
+  }, 4000); // change image every 4 seconds
+})();
