@@ -26,7 +26,8 @@
 /* ================= RESET ================= */
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0; overflow-x:hidden;}
+
 
 body{
   font: 15px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial;
@@ -563,4 +564,27 @@ footer.site-footer{
 .maintenance-text.is-fading{
   opacity: 0;
   transform: translateY(6px);
+}
+
+/* Keep partner document column contained */
+.partners-doc{
+  max-width: 520px;
+  width: 100%;
+  justify-self: stretch;
+}
+
+
+/* Partner document preview (always contained) */
+.partners-doc .doc-img{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;   /* landscape preview; change to 3/4 if portrait */
+  object-fit: contain;   /* no cropping */
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 12px;         /* makes it look like "paper" */
 }
