@@ -92,31 +92,51 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ===== Maintenance Image Slider ===== */
+/* ===== Maintenance Image Slider (with captions) ===== */
 (function () {
   const slider = document.querySelector('.maintenance-slider');
-  if (!slider) return;
+  const textEl = document.getElementById('maintenanceText');
+  if (!slider || !textEl) return;
 
-  const images = [
-    '/assets/img/placeholder-maintenance.jpg',
-    '/assets/img/placeholder-maintenance2.jpg',
-    '/assets/img/placeholder-maintenance3.jpg'
+  const slides = [
+    {
+      img: '/assets/img/placeholder-maintenance.jpg',
+      text: 'Precision maintenance by OEM-trained specialists'
+    },
+    {
+      img: '/assets/img/placeholder-maintenance2.jpg',
+      text: 'Extending asset life through certified upgrades'
+    },
+    {
+      img: '/assets/img/placeholder-maintenance3.jpg',
+      text: 'Minimising downtime with on-site technical expertise'
+    }
   ];
 
   let current = 0;
-  slider.style.backgroundImage = `url(${images[current]})`;
+  slider.style.backgroundImage = `url(${slides[current].img)}`;
+  textEl.textContent = slides[current].text;
 
   setInterval(() => {
-    const next = (current + 1) % images.length;
+    const next = (current + 1) % slides.length;
 
-    slider.style.setProperty('--maint-next', `url(${images[next]})`);
+    /* fade text out */
+    textEl.classList.add('is-fading');
+
+    /* prepare next image */
+    slider.style.setProperty('--maint-next', `url(${slides[next].img})`);
     slider.classList.add('is-fading');
 
     setTimeout(() => {
-      slider.style.backgroundImage = `url(${images[next]})`;
+      slider.style.backgroundImage = `url(${slides[next].img})`;
+      textEl.textContent = slides[next].text;
+
       slider.classList.remove('is-fading');
+      textEl.classList.remove('is-fading');
+
       current = next;
     }, 900);
 
-  }, 4000); // change image every 4 seconds
+  }, 4000);
 })();
+
