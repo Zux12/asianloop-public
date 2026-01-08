@@ -506,3 +506,31 @@ footer.site-footer{
   .cred-grid{ grid-template-columns: 1fr; }
   .cred-media img{ height: 240px; }
 }
+
+/* ===== Maintenance Image Slider (Services Page) ===== */
+.maintenance-slider{
+  position: relative;
+  height: 360px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: background-image 0.6s ease-in-out;
+}
+
+/* Cross-fade layer */
+.maintenance-slider::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: var(--maint-next);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.maintenance-slider.is-fading::before{
+  opacity: 1;
+}
