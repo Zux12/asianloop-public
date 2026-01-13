@@ -140,3 +140,47 @@ slider.style.backgroundImage = `url(${slides[current].img})`;
   }, 4000);
 })();
 
+/* ===== MoU Logo Slider (AsianLoop x EuroLoop) ===== */
+(function () {
+  const slider = document.querySelector('.mou-logo-slider');
+  const textEl = document.getElementById('mouText');
+  if (!slider || !textEl) return;
+
+const slides = [
+  {
+    img: '/assets/img/placeholder-mou.jpg',
+    text: 'Formal MoU and technical agreement underpinning the collaboration'
+  },
+  {
+    img: '/assets/img/logo.png',
+    text: 'AsianLoop – advancing precision measurement capability in the region'
+  },
+  {
+    img: '/assets/img/eurolooplogo.png',
+    text: 'EuroLoop – global benchmark expertise supporting local calibration excellence'
+  }
+];
+
+
+  let current = 0;
+  slider.style.backgroundImage = `url(${slides[current].img})`;
+  textEl.textContent = slides[current].text;
+
+  setInterval(() => {
+    const next = (current + 1) % slides.length;
+
+    textEl.classList.add('is-fading');
+    slider.style.setProperty('--mou-next', `url(${slides[next].img})`);
+    slider.classList.add('is-fading');
+
+    setTimeout(() => {
+      slider.style.backgroundImage = `url(${slides[next].img})`;
+      textEl.textContent = slides[next].text;
+
+      slider.classList.remove('is-fading');
+      textEl.classList.remove('is-fading');
+      current = next;
+    }, 900);
+
+  }, 4000);
+})();
