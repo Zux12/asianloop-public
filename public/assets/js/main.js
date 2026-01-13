@@ -184,3 +184,73 @@ const slides = [
 
   }, 4000);
 })();
+
+/* ===== Auto Mobile Nav Drawer (no HTML changes needed) ===== */
+(function(){
+  const header = document.querySelector('.site-header .navbar');
+  if (!header) return;
+
+  const navLinks = header.querySelector('.nav-links');
+  const navCta = header.querySelector('.nav-cta');
+  if (!navLinks || !navCta) return;
+
+  // Avoid duplicating if script runs again
+  if (header.querySelector('.nav-toggle')) return;
+
+  // Create hamburger button
+  const btn = document.createElement('button');
+  btn.className = 'nav-toggle';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Open menu');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+
+  // Create drawer + backdrop
+  const drawer = document.createElement('div');
+  drawer.className = 'nav-drawer';
+  drawer.id = 'navDrawer';
+  drawer.setAttribute('aria-hidden', 'true');
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'nav-backdrop';
+  backdrop.id = 'navBackdrop';
+  backdrop.setAttribute('aria-hidden', 'true');
+
+  // Clone existing nav + CTA into drawer (so you maintain 1 source of truth)
+  const navClone = navLinks.cloneNode(true);
+  const ctaClone = navCta.cloneNode(true);
+  drawer.appendChild(navClone);
+  drawer.appendChild(ctaClone);
+
+  // Insert hamburger into header (before CTA, so it sits right side)
+  header.appendChild(btn);
+  document.body.appendChild(drawer);
+  document.body.appendChild(backdrop);
+
+  const open = () => {
+    document.body.classList.add('nav-open');
+    btn.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    backdrop.setAttribute('aria-hidden', 'false');
+  };
+
+  const close = () => {
+    document.body.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    backdrop.setAttribute('aria-hidden', 'true');
+  };
+
+  btn.addEventListener('click', () => {
+    document.body.classList.contains('nav-open') ? close() : open();
+  });
+
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  // Close after user taps a link in the drawer
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+})();
