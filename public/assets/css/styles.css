@@ -448,6 +448,13 @@ footer.site-footer{
   background: var(--card);
 }
 .media-wide img{ width:100%; height: 340px; object-fit: cover; display:block; }
+.media-wide .map-embed{
+  width: 100%;
+  height: 340px;   /* same as your placeholder image */
+  border: 0;
+  display: block;
+}
+
 
 /* CTA */
 .section.cta{ padding: 40px 0 70px; }
