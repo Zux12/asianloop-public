@@ -666,3 +666,63 @@ footer.site-footer{
   .logo-item{ height: 68px; }
   .logo-item img{ height: 32px; max-width: 120px; }
 }
+
+
+/* ===== MoU Logo Slider ===== */
+.mou-logo-slider{
+  position: relative;
+  height: 220px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: background-image 0.6s ease-in-out;
+}
+
+/* cross-fade layer */
+.mou-logo-slider::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: var(--mou-next);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.mou-logo-slider.is-fading::before{
+  opacity: 1;
+}
+
+/* text overlay */
+.mou-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  pointer-events:none;
+}
+
+.mou-text{
+  margin:14px;
+  padding:8px 12px;
+  max-width: 85%;
+  background: rgba(255,255,255,0.94);
+  color: var(--brand-primary);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.35;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.mou-text.is-fading{
+  opacity: 0;
+  transform: translateY(6px);
+}
