@@ -814,6 +814,13 @@ footer.site-footer{
 
   .nav-drawer .nav-cta{
     display:flex;
-    margin-top: 14px;
+    justify-content: center;   /* center horizontally */
+    margin-top: 18px;
+  }
+
+    .nav-drawer .nav-cta .btn{
+    width: 100%;
+    max-width: 220px;          /* same visual weight as menu pills */
+    justify-content: center;
   }
 }
