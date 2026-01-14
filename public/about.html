@@ -14,6 +14,117 @@
 
   <link rel="icon" href="/assets/img/favicon.ico" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
+
+
+
+
+  <style>
+  /* ===== Org Chart Block ===== */
+  .orgchart-block{
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 18px 18px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 14px;
+    background: #fff;
+  }
+  .orgchart-title{ margin: 0 0 6px; font-size: 18px; }
+  .orgchart-text{ margin: 0 0 10px; color: #475569; }
+  .orgchart-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    text-decoration: none;
+    color: #0f172a;
+    background: #fff;
+    font-weight: 600;
+  }
+  .orgchart-link:hover{ transform: translateY(-1px); }
+
+  /* ===== Modal ===== */
+  .orgchart-modal{
+    position: fixed;
+    inset: 0;
+    display: none; /* opened via JS */
+    z-index: 9999;
+  }
+  .orgchart-modal.is-open{ display: block; }
+
+  .orgchart-modal__backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .orgchart-modal__panel{
+    position: relative;
+    margin: 5vh auto;
+    width: min(1100px, 94vw);
+    height: 90vh;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orgchart-modal__header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+    background: #fff;
+  }
+  .orgchart-modal__logo{
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+  }
+  .orgchart-modal__title{ font-weight: 800; font-size: 16px; color: #0f172a; }
+  .orgchart-modal__subtitle{ font-size: 12px; color: #64748b; }
+
+  .orgchart-modal__close{
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    font-size: 18px;
+    line-height: 1;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  .orgchart-modal__close:hover{
+    background: rgba(15, 23, 42, 0.06);
+  }
+
+  .orgchart-modal__body{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .orgchart-modal__frame{
+    flex: 1;
+    width: 100%;
+    border: 0;
+  }
+  .orgchart-modal__fallback{
+    margin: 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #64748b;
+    border-top: 1px solid rgba(15, 23, 42, 0.10);
+  }
+</style>
+
+
+  
 </head>
 <body>
 
@@ -120,8 +231,62 @@
     </div>
   </section>
 
+
+
+<!-- Org Chart Link (place in About page content, near Governance/Organization) -->
+    <section class="section">
+<div class="orgchart-block">
+  <h3 class="orgchart-title">Governance & Organization</h3>
+  <p class="orgchart-text">
+    View our organizational structure for accountability, quality governance, and operational clarity.
+  </p>
+
+  <a href="#" id="openOrgChart" class="orgchart-link" aria-haspopup="dialog">
+    View Organization Chart
+  </a>
+</div>
+
+<!-- Org Chart Modal -->
+<div id="orgChartModal" class="orgchart-modal" role="dialog" aria-modal="true" aria-labelledby="orgChartTitle" aria-hidden="true">
+  <div class="orgchart-modal__backdrop" data-close="true"></div>
+
+  <div class="orgchart-modal__panel" role="document">
+    <div class="orgchart-modal__header">
+      <img src="/assets/img/logo.jpg" alt="Asianloop" class="orgchart-modal__logo" />
+      <div class="orgchart-modal__headerText">
+        <div id="orgChartTitle" class="orgchart-modal__title">Organization Chart</div>
+        <div class="orgchart-modal__subtitle">Asianloop Sdn Bhd</div>
+      </div>
+
+      <button type="button" class="orgchart-modal__close" id="closeOrgChart" aria-label="Close organization chart">
+        ✕
+      </button>
+    </div>
+
+    <div class="orgchart-modal__body">
+      <!-- Embedded PDF -->
+      <iframe
+        class="orgchart-modal__frame"
+        src="assets/Organization%20Chart_REV.2.pdf#view=FitH"
+        title="Asianloop Organization Chart PDF"
+      ></iframe>
+
+      <!-- Fallback download link -->
+      <p class="orgchart-modal__fallback">
+        If the chart does not display, <a href="assets/Organization%20Chart_REV.2.pdf" target="_blank" rel="noopener">open it in a new tab</a>.
+      </p>
+    </div>
+  </div>
+</div>
+  </section>
+
+
+
+
+
+  
   <!-- LOCATIONS (Slide 5) -->
-  <section class="section">
+  <section class="section alt">
     <div class="container">
       <h2>Strategically Positioned</h2>
       <p class="lead">
@@ -189,6 +354,56 @@
   </div>
 </footer>
 
+
+<script>
+  (function () {
+    const openBtn = document.getElementById("openOrgChart");
+    const modal = document.getElementById("orgChartModal");
+    const closeBtn = document.getElementById("closeOrgChart");
+
+    if (!openBtn || !modal || !closeBtn) return;
+
+    function openModal() {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openModal();
+    });
+
+    closeBtn.addEventListener("click", function () {
+      closeModal();
+    });
+
+    // Click outside to close
+    modal.addEventListener("click", function (e) {
+      if (e.target && e.target.dataset && e.target.dataset.close === "true") {
+        closeModal();
+      }
+    });
+
+    // ESC to close
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+  })();
+</script>
+
+
+  
 <script src="/assets/js/main.js"></script>
 </body>
 </html>
