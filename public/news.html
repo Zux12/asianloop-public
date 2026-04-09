@@ -1,1 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>News — Asianloop</title>
+<meta name="description" content="Latest news, announcements, updates, and milestones from Asianloop." />
+<link rel="canonical" href="https://www.asian-loop.com/news.html" />
 
+<meta property="og:title" content="News — Asianloop" />
+<meta property="og:description" content="Latest news, announcements, updates, and milestones from Asianloop." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.asian-loop.com/news.html" />
+
+  <link rel="icon" href="/assets/img/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo.jpg" alt="Asianloop logo">
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/services.html">Services</a>
+      <a href="/partners.html">Partners</a>
+      <a href="/credentials.html">Credentials</a>
+      <a class="active" href="/news.html">News</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn primary" href="/contact.html">Request a Quote</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- NEWS HERO -->
+  <section class="page-hero">
+    <div class="container page-hero-grid">
+      <div class="page-hero-copy">
+        <div class="kicker">Asianloop News</div>
+        <h1 class="page-title">Latest News & Updates</h1>
+        <p class="lead">
+          Stay updated with the latest announcements, milestones, partnerships,
+          events, and developments from Asianloop.
+        </p>
+      </div>
+
+      <div class="page-hero-media">
+        <img src="/assets/img/placeholder-services-hero.jpg" alt="Asianloop latest news">
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS FILTER -->
+  <section class="section">
+    <div class="container">
+      <div class="card" style="padding:24px;">
+        <h2 style="margin-bottom:16px;">Browse News Archive</h2>
+
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+          <div>
+            <label for="yearFilter" style="display:block; margin-bottom:8px; font-weight:600;">Select Year</label>
+            <select id="yearFilter" style="width:100%; padding:12px; border:1px solid #d9d9d9; border-radius:10px;">
+              <option value="">All Years</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="monthFilter" style="display:block; margin-bottom:8px; font-weight:600;">Select Month</label>
+            <select id="monthFilter" style="width:100%; padding:12px; border:1px solid #d9d9d9; border-radius:10px;">
+              <option value="">All Months</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS LIST -->
+  <section class="section alt">
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px;">
+        <h2 style="margin:0;">News Listing</h2>
+        <p id="newsCount" class="small" style="margin:0;">0 articles</p>
+      </div>
+
+      <div id="newsList" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+        <!-- News cards will be injected here -->
+      </div>
+
+      <div id="noNewsMessage" class="card" style="display:none; margin-top:20px; text-align:center; padding:28px;">
+        <h3 style="margin-bottom:10px;">No news found</h3>
+        <p class="small" style="margin:0;">Please try another year or month selection.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="small">© <span id="year"></span> Asianloop Sdn Bhd. All rights reserved.</div>
+    <div class="small">
+      <a href="/contact.html">Contact</a> •
+      <a href="https://staff.asian-loop.com">Staff Portal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+<script>
+  const newsData = [
+    {
+      title: "Asianloop Announces Expansion of Calibration Services",
+      date: "2026-03-15",
+      summary: "Asianloop expands its calibration offerings to support broader industry requirements across gas and liquid measurement.",
+      link: "#"
+    },
+    {
+      title: "New Industry Partnership Strengthens Technical Capabilities",
+      date: "2026-02-08",
+      summary: "A new collaboration reinforces Asianloop’s commitment to precision, compliance, and long-term customer support.",
+      link: "#"
+    },
+    {
+      title: "Training Programme Launched for Flow Measurement Professionals",
+      date: "2025-11-21",
+      summary: "Asianloop launches a new expert-led training programme focusing on measurement accuracy, auditing, and uncertainty.",
+      link: "#"
+    },
+    {
+      title: "Facility Milestone Achieved in High-Pressure Gas Calibration",
+      date: "2025-08-04",
+      summary: "The latest operational milestone highlights Asianloop’s continued investment in advanced calibration infrastructure.",
+      link: "#"
+    },
+    {
+      title: "Asianloop Showcases Lifecycle Support Services",
+      date: "2025-04-17",
+      summary: "The company highlights maintenance, repair, and upgrade services designed to enhance operational uptime.",
+      link: "#"
+    }
+  ];
+
+  const yearFilter = document.getElementById("yearFilter");
+  const monthFilter = document.getElementById("monthFilter");
+  const newsList = document.getElementById("newsList");
+  const newsCount = document.getElementById("newsCount");
+  const noNewsMessage = document.getElementById("noNewsMessage");
+
+  function populateYears() {
+    const years = [...new Set(newsData.map(item => new Date(item.date).getFullYear()))].sort((a, b) => b - a);
+
+    years.forEach(year => {
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year;
+      yearFilter.appendChild(option);
+    });
+  }
+
+  function renderNews() {
+    const selectedYear = yearFilter.value;
+    const selectedMonth = monthFilter.value;
+
+    const filteredNews = newsData.filter(item => {
+      const itemDate = new Date(item.date);
+      const itemYear = String(itemDate.getFullYear());
+      const itemMonth = String(itemDate.getMonth() + 1);
+
+      const matchYear = !selectedYear || itemYear === selectedYear;
+      const matchMonth = !selectedMonth || itemMonth === selectedMonth;
+
+      return matchYear && matchMonth;
+    });
+
+    filteredNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    newsList.innerHTML = "";
+
+    if (filteredNews.length === 0) {
+      newsCount.textContent = "0 articles";
+      noNewsMessage.style.display = "block";
+      return;
+    }
+
+    noNewsMessage.style.display = "none";
+    newsCount.textContent = `${filteredNews.length} article${filteredNews.length > 1 ? "s" : ""}`;
+
+    filteredNews.forEach(item => {
+      const article = document.createElement("article");
+      article.className = "card";
+      article.style.padding = "22px";
+
+      const formattedDate = new Date(item.date).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+
+      article.innerHTML = `
+        <p class="tag" style="margin-bottom:10px;">${formattedDate}</p>
+        <h3 style="margin-bottom:12px;">${item.title}</h3>
+        <p style="margin-bottom:16px;">${item.summary}</p>
+        <a class="btn" href="${item.link}">Read More</a>
+      `;
+
+      newsList.appendChild(article);
+    });
+  }
+
+  populateYears();
+  renderNews();
+
+  yearFilter.addEventListener("change", renderNews);
+  monthFilter.addEventListener("change", renderNews);
+</script>
+
+</body>
+</html>
