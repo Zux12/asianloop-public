@@ -3,6 +3,7 @@ const multer = require("multer");
 const mongoose = require("mongoose");
 const { GridFSBucket } = require("mongodb");
 const CareerApplication = require("../models/CareerApplication");
+const { sendCareerEmails } = require("../utils/mailer");
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ const upload = multer({
 
 function getBucket() {
   const db = mongoose.connection.db;
+
   return new GridFSBucket(db, {
     bucketName: "career_uploads"
   });
@@ -90,9 +92,19 @@ router.post(
         });
       }
 
-      const cvFile = await uploadToGridFS(req.files.cv[0]);
-      const coverLetterFile = await uploadToGridFS(req.files.coverLetter[0]);
+      // ORIGINAL FILES
+      const cvOriginal = req.files.cv[0];
+      const coverOriginal = req.files.coverLetter[0];
 
+      // KEEP COPIES FOR EMAIL ATTACHMENTS
+      const cvBuffer = Buffer.from(cvOriginal.buffer);
+      const coverBuffer = Buffer.from(coverOriginal.buffer);
+
+      // STORE INTO GRIDFS
+      const cvFile = await uploadToGridFS(cvOriginal);
+      const coverLetterFile = await uploadToGridFS(coverOriginal);
+
+      // SAVE APPLICATION
       const application = await CareerApplication.create({
         applicationType: body.applicationType,
         title: body.title,
@@ -115,11 +127,21 @@ router.post(
         coverLetterFile
       });
 
+      // SEND EMAILS
+      await sendCareerEmails({
+        application,
+        cvBuffer,
+        cvFile: cvOriginal,
+        coverBuffer,
+        coverFile: coverOriginal
+      });
+
       return res.status(201).json({
         ok: true,
         message: "Application submitted successfully.",
         applicationId: application._id
       });
+
     } catch (err) {
       console.error("Career application error:", err);
 
