@@ -77,6 +77,35 @@ router.post(
       }
 
       const body = req.body;
+      const cleanEmail = String(body.email || "").trim().toLowerCase();
+      const cleanDepartment = String(body.interestedDepartment || "").trim();
+
+      if (!cleanEmail) {
+        return res.status(400).json({
+          ok: false,
+          message: "Email is required."
+        });
+      }
+
+      if (!cleanDepartment) {
+        return res.status(400).json({
+          ok: false,
+          message: "Interested department is required."
+        });
+      }
+
+      const existingApplication = await CareerApplication.findOne({
+        email: cleanEmail,
+        interestedDepartment: cleanDepartment
+      });
+
+      if (existingApplication) {
+        return res.status(409).json({
+          ok: false,
+          message:
+            "You have already submitted an application for this interested department. You may submit another application only for a different department."
+        });
+      }
 
       if (!req.files?.cv?.[0]) {
         return res.status(400).json({
@@ -92,29 +121,25 @@ router.post(
         });
       }
 
-      // ORIGINAL FILES
       const cvOriginal = req.files.cv[0];
       const coverOriginal = req.files.coverLetter[0];
 
-      // KEEP COPIES FOR EMAIL ATTACHMENTS
       const cvBuffer = Buffer.from(cvOriginal.buffer);
       const coverBuffer = Buffer.from(coverOriginal.buffer);
 
-      // STORE INTO GRIDFS
       const cvFile = await uploadToGridFS(cvOriginal);
       const coverLetterFile = await uploadToGridFS(coverOriginal);
 
-      // SAVE APPLICATION
       const application = await CareerApplication.create({
         applicationType: body.applicationType,
         title: body.title,
         fullName: body.fullName,
-        email: body.email,
+        email: cleanEmail,
         phone: body.phone,
         nationality: body.nationality,
         currentLocation: body.currentLocation,
         background: body.background,
-        interestedDepartment: body.interestedDepartment,
+        interestedDepartment: cleanDepartment,
         qualification: body.qualification,
         yearsExperience: Number(body.yearsExperience || 0),
         currentSalary: body.currentSalary || "",
@@ -127,7 +152,6 @@ router.post(
         coverLetterFile
       });
 
-      // SEND EMAILS
       await sendCareerEmails({
         application,
         cvBuffer,
@@ -141,7 +165,6 @@ router.post(
         message: "Application submitted successfully.",
         applicationId: application._id
       });
-
     } catch (err) {
       console.error("Career application error:", err);
 
