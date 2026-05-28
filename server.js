@@ -1,13 +1,37 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (MONGODB_URI) {
+  mongoose
+    .connect(MONGODB_URI, {
+      dbName: "asianloop_hiring"
+    })
+    .then(() => {
+      console.log("MongoDB connected: asianloop_hiring");
+    })
+    .catch((err) => {
+      console.error("MongoDB connection error:", err.message);
+    });
+} else {
+  console.warn("MONGODB_URI not set. Career form database features will not work.");
+}
+
 // Serve static files from /public
 app.use(express.static(path.join(__dirname, "public"), { extensions: ["html"] }));
 
-// Friendly routes (optional): /about -> /about.html
+// Friendly routes: /about -> /about.html
 app.get("/:page", (req, res, next) => {
   const page = req.params.page;
   const file = path.join(__dirname, "public", `${page}.html`);
