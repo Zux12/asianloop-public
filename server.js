@@ -16,7 +16,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 if (MONGODB_URI) {
   mongoose
     .connect(MONGODB_URI, {
-      dbName: "asianloop_hiring"
+      dbName: "asianloop_career"
     })
     .then(() => {
       console.log("MongoDB connected: asianloop_hiring");
