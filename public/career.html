@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Career — Asianloop</title>
+  <meta name="description" content="Explore career and internship opportunities with Asianloop." />
+
+  <link rel="icon" href="/assets/img/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo.jpg" alt="Asianloop logo">
+      <span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/services.html">Services</a>
+      <a href="/partners.html">Partners</a>
+      <a href="/credentials.html">Credentials</a>
+      <a href="/news.html">News</a>
+      <a class="active" href="/career.html">Career</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn primary" href="/contact.html">Request a Quote</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Asianloop Talent</div>
+      <h1 class="page-title">Build Your Future With Asianloop</h1>
+      <p class="lead">
+        Join a growing organisation focused on advanced calibration, metrology, engineering,
+        technology development, business growth and regional industrial excellence.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="card">
+          <h3>Career Opportunities</h3>
+          <p>
+            For professionals, executives, engineers, technical specialists and business talents
+            interested in building long-term careers with Asianloop.
+          </p>
+          <button class="btn primary career-select" data-type="career">Apply for Career</button>
+        </div>
+
+        <div class="card">
+          <h3>Internship Programme</h3>
+          <p>
+            For students and fresh graduates seeking exposure in engineering, metrology,
+            digital systems, business development, operations and corporate functions.
+          </p>
+          <button class="btn secondary career-select" data-type="internship">Apply for Internship</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="applicationSection" style="display:none;">
+    <div class="container">
+      <h2 id="formTitle">Application Form</h2>
+      <p class="muted" id="formIntro">
+        Please complete the form below and upload your CV and cover letter.
+      </p>
+
+      <form id="careerForm" class="card" enctype="multipart/form-data" style="margin-top:18px;">
+        <input type="hidden" name="applicationType" id="applicationType" required>
+
+        <div class="two-col">
+          <div>
+            <label>Title *</label>
+            <select name="title" required>
+              <option value="">Select title</option>
+              <option>Mr</option>
+              <option>Ms</option>
+              <option>Mrs</option>
+              <option>Dr</option>
+              <option>Ir</option>
+              <option>Ts</option>
+              <option>Sr</option>
+              <option>Prof</option>
+              <option>Assoc. Prof</option>
+              <option>Dato'</option>
+              <option>Datuk</option>
+              <option>Datin</option>
+              <option>Tan Sri</option>
+              <option>Puan Sri</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Full Name *</label>
+            <input type="text" name="fullName" required placeholder="Enter full name">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Email *</label>
+            <input type="email" name="email" required placeholder="example@email.com">
+          </div>
+
+          <div>
+            <label>Phone Number *</label>
+            <input type="text" name="phone" required placeholder="+60...">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Nationality *</label>
+            <input type="text" name="nationality" required placeholder="Malaysian / Non-Malaysian">
+          </div>
+
+          <div>
+            <label>Current Location *</label>
+            <input type="text" name="currentLocation" required placeholder="City, Country">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Background *</label>
+            <select name="background" required>
+              <option value="">Select background</option>
+              <option>Engineering</option>
+              <option>Calibration & Metrology</option>
+              <option>Software & AI</option>
+              <option>Sales & Business Development</option>
+              <option>Finance</option>
+              <option>Administration</option>
+              <option>Human Resource</option>
+              <option>Operations</option>
+              <option>Legal / Compliance</option>
+              <option>Marketing / Communications</option>
+              <option>Fresh Graduate</option>
+              <option>Student</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Interested Department *</label>
+            <select name="interestedDepartment" required>
+              <option value="">Select department</option>
+              <option>Calibration Laboratory</option>
+              <option>Engineering & Projects</option>
+              <option>Digital Systems & AI</option>
+              <option>Business Development</option>
+              <option>Corporate Management</option>
+              <option>Research & Innovation</option>
+              <option>Training & Events</option>
+              <option>Finance & Administration</option>
+              <option>Human Resource & Talent</option>
+              <option>Internship Programme</option>
+              <option>Others</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Highest Qualification *</label>
+            <select name="qualification" required>
+              <option value="">Select qualification</option>
+              <option>SPM / O-Level</option>
+              <option>STPM / Foundation / A-Level</option>
+              <option>Certificate</option>
+              <option>Diploma</option>
+              <option>Bachelor's Degree</option>
+              <option>Master's Degree</option>
+              <option>PhD</option>
+              <option>Professional Certification</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Years of Experience *</label>
+            <input type="number" name="yearsExperience" min="0" step="1" required value="0">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Current Salary / Allowance</label>
+            <input type="text" name="currentSalary" placeholder="Optional">
+          </div>
+
+          <div>
+            <label>Expected Salary / Allowance</label>
+            <input type="text" name="expectedSalary" placeholder="Optional">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Notice Period</label>
+            <input type="text" name="noticePeriod" placeholder="Optional">
+          </div>
+
+          <div>
+            <label>LinkedIn / Portfolio URL</label>
+            <input type="url" name="linkedinUrl" placeholder="Optional">
+          </div>
+        </div>
+
+        <div>
+          <label>Message / Short Introduction</label>
+          <textarea name="message" rows="5" placeholder="Briefly introduce yourself or share any additional information."></textarea>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <label>Upload CV / Resume *</label>
+            <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
+            <p class="small muted">Accepted: PDF, DOC, DOCX. Max 10MB.</p>
+          </div>
+
+          <div>
+            <label>Upload Cover Letter *</label>
+            <input type="file" name="coverLetter" accept=".pdf,.doc,.docx" required>
+            <p class="small muted">Accepted: PDF, DOC, DOCX. Max 10MB.</p>
+          </div>
+        </div>
+
+        <label style="display:flex;gap:10px;align-items:flex-start;margin-top:14px;">
+          <input type="checkbox" name="consent" required style="width:auto;margin-top:6px;">
+          <span class="muted">
+            I consent to Asianloop collecting, storing and reviewing my personal information
+            and uploaded documents for recruitment, internship and future talent opportunities.
+          </span>
+        </label>
+
+        <div class="hero-actions" style="margin-top:20px;">
+          <button type="submit" class="btn primary" id="submitBtn">Submit Application</button>
+          <button type="button" class="btn" id="resetFormBtn">Reset</button>
+        </div>
+
+        <div id="careerMsg" class="muted" style="margin-top:14px;"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="small">© <span id="year"></span> Asianloop Sdn Bhd. All rights reserved.</div>
+    <div class="small">
+      <a href="/contact.html">Contact</a> •
+      <a href="https://staff.asian-loop.com">Staff Portal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/career.js"></script>
+</body>
+</html>
