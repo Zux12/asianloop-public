@@ -248,11 +248,16 @@ focus lies in projects that foster long-term value-such as establishing advanced
 </style>
 
 <script>
-  (function () {
+  document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("maltechPopup");
     const closeBtn = document.getElementById("maltechPopupClose");
     const floatBtn = document.getElementById("maltechFloatBtn");
-    const backdrop = popup.querySelector(".maltech-popup-backdrop");
+    const backdrop = document.querySelector(".maltech-popup-backdrop");
+
+    if (!popup || !closeBtn || !floatBtn || !backdrop) {
+      console.warn("MALTECH popup elements not found.");
+      return;
+    }
 
     const storageKey = "maltech_popup_closed_until";
     const oneDay = 24 * 60 * 60 * 1000;
@@ -279,9 +284,7 @@ focus lies in projects that foster long-term value-such as establishing advanced
     }
 
     setTimeout(function () {
-      if (shouldAutoShow()) {
-        openPopup();
-      }
+      if (shouldAutoShow()) openPopup();
     }, 1500);
 
     closeBtn.addEventListener("click", function () {
@@ -301,7 +304,7 @@ focus lies in projects that foster long-term value-such as establishing advanced
         closePopup(true);
       }
     });
-  })();
+  });
 </script>
 
   
