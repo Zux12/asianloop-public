@@ -125,9 +125,8 @@ focus lies in projects that foster long-term value-such as establishing advanced
     </a>
   </div>
 </div>
-
-<button type="button" id="maltechFloatBtn" class="maltech-float-btn" aria-label="Open MALTECH training popup">
-  <span>Training</span>
+<button type="button" id="maltechFloatBtn" class="maltech-float-btn" aria-label="Training Information">
+  ℹ️
 </button>
 
 <style>
@@ -152,33 +151,36 @@ focus lies in projects that foster long-term value-such as establishing advanced
     backdrop-filter: blur(6px);
   }
 
-  .maltech-popup-card {
-    position: relative;
-    z-index: 2;
-    width: min(92vw, 760px);
-    max-height: 92vh;
-    border-radius: 22px;
-    overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
-    animation: maltechPopIn 0.35s ease;
-  }
+.maltech-popup-card {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 520px);
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.28),
+    0 10px 25px rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.4);
+  animation: maltechPopIn .35s ease;
+}
 
-  .maltech-popup-card img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 92vh;
-    object-fit: contain;
-  }
+.maltech-popup-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 14px;
+  box-sizing: border-box;
+  border-radius: 22px;
+}
 
   .maltech-popup-close {
     position: absolute;
     top: 10px;
     right: 12px;
     z-index: 3;
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border: 0;
     border-radius: 999px;
     background: rgba(5, 20, 40, 0.85);
@@ -193,24 +195,36 @@ focus lies in projects that foster long-term value-such as establishing advanced
     background: #005bbb;
   }
 
-  .maltech-float-btn {
-    position: fixed;
-    right: 20px;
-    top: 52%;
-    transform: translateY(-50%);
-    z-index: 9998;
-    width: 82px;
-    height: 82px;
-    border: 0;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #0067c8, #00a6e8);
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    box-shadow: 0 18px 40px rgba(0, 103, 200, 0.38);
-  }
+ .maltech-float-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9998;
+
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #0b63ce;
+  color: white;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(11,99,206,.35);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all .25s ease;
+}
+
+.maltech-float-btn:hover{
+  transform: translateY(-3px);
+}
 
   .maltech-float-btn span {
     display: block;
