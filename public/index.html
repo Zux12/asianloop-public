@@ -112,6 +112,199 @@ focus lies in projects that foster long-term value-such as establishing advanced
   </div>
 </footer>
 
+
+<!-- MALTECH Training Popup -->
+<div id="maltechPopup" class="maltech-popup" aria-hidden="true">
+  <div class="maltech-popup-backdrop"></div>
+
+  <div class="maltech-popup-card" role="dialog" aria-modal="true" aria-label="MALTECH Training Advertisement">
+    <button type="button" class="maltech-popup-close" id="maltechPopupClose" aria-label="Close popup">×</button>
+
+    <a href="https://maltech.asian-loop.com" target="_blank" rel="noopener noreferrer">
+      <img src="public/assets/img/maltech-training-poster.png" alt="Flow Measurement and Metering Fundamentals Training" />
+    </a>
+  </div>
+</div>
+
+<button type="button" id="maltechFloatBtn" class="maltech-float-btn" aria-label="Open MALTECH training popup">
+  <span>Training</span>
+</button>
+
+<style>
+  .maltech-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .maltech-popup.is-open {
+    display: flex;
+  }
+
+  .maltech-popup-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 18, 40, 0.72);
+    backdrop-filter: blur(6px);
+  }
+
+  .maltech-popup-card {
+    position: relative;
+    z-index: 2;
+    width: min(92vw, 760px);
+    max-height: 92vh;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+    animation: maltechPopIn 0.35s ease;
+  }
+
+  .maltech-popup-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 92vh;
+    object-fit: contain;
+  }
+
+  .maltech-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(5, 20, 40, 0.85);
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  }
+
+  .maltech-popup-close:hover {
+    background: #005bbb;
+  }
+
+  .maltech-float-btn {
+    position: fixed;
+    right: 20px;
+    top: 52%;
+    transform: translateY(-50%);
+    z-index: 9998;
+    width: 82px;
+    height: 82px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #0067c8, #00a6e8);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: 0 18px 40px rgba(0, 103, 200, 0.38);
+  }
+
+  .maltech-float-btn span {
+    display: block;
+    padding: 0 8px;
+  }
+
+  .maltech-float-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  @keyframes maltechPopIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .maltech-popup-card {
+      width: 95vw;
+      border-radius: 16px;
+    }
+
+    .maltech-float-btn {
+      right: 14px;
+      width: 68px;
+      height: 68px;
+      font-size: 10px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const popup = document.getElementById("maltechPopup");
+    const closeBtn = document.getElementById("maltechPopupClose");
+    const floatBtn = document.getElementById("maltechFloatBtn");
+    const backdrop = popup.querySelector(".maltech-popup-backdrop");
+
+    const storageKey = "maltech_popup_closed_until";
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    function openPopup() {
+      popup.classList.add("is-open");
+      popup.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePopup(saveDismissal) {
+      popup.classList.remove("is-open");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+
+      if (saveDismissal) {
+        localStorage.setItem(storageKey, String(Date.now() + oneDay));
+      }
+    }
+
+    function shouldAutoShow() {
+      const closedUntil = Number(localStorage.getItem(storageKey) || 0);
+      return Date.now() > closedUntil;
+    }
+
+    setTimeout(function () {
+      if (shouldAutoShow()) {
+        openPopup();
+      }
+    }, 1500);
+
+    closeBtn.addEventListener("click", function () {
+      closePopup(true);
+    });
+
+    backdrop.addEventListener("click", function () {
+      closePopup(true);
+    });
+
+    floatBtn.addEventListener("click", function () {
+      openPopup();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && popup.classList.contains("is-open")) {
+        closePopup(true);
+      }
+    });
+  })();
+</script>
+
+  
 <script src="/assets/js/main.js"></script>
 </body>
 </html>
