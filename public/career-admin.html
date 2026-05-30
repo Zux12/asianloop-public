@@ -135,8 +135,9 @@
       </div>
 
       <div class="admin-actions">
-        <button class="btn primary" id="filterBtn">Apply Filter</button>
-        <button class="btn" id="clearBtn">Clear</button>
+<button class="btn primary" id="filterBtn">Apply Filter</button>
+<button class="btn" id="clearBtn">Clear</button>
+<button class="btn secondary" id="exportBtn">Export CSV</button>
       </div>
     </section>
 
@@ -472,7 +473,83 @@ function renderTable(items){
     }
   }
 
+function exportCSV(){
+  if(!allItems.length){
+    alert("No applications to export.");
+    return;
+  }
+
+  const headers = [
+    "Date",
+    "Application Type",
+    "Title",
+    "Full Name",
+    "Email",
+    "Phone",
+    "Nationality",
+    "Current Location",
+    "Background",
+    "Interested Department",
+    "Qualification",
+    "Years Experience",
+    "Current Salary",
+    "Expected Salary",
+    "Notice Period",
+    "LinkedIn",
+    "Status",
+    "Reviewed By",
+    "Reviewed At",
+    "Review Notes",
+    "Message"
+  ];
+
+  const rows = allItems.map(x => [
+    fmtDate(x.createdAt),
+    x.applicationType || "",
+    x.title || "",
+    x.fullName || "",
+    x.email || "",
+    x.phone || "",
+    x.nationality || "",
+    x.currentLocation || "",
+    x.background || "",
+    x.interestedDepartment || "",
+    x.qualification || "",
+    x.yearsExperience || 0,
+    x.currentSalary || "",
+    x.expectedSalary || "",
+    x.noticePeriod || "",
+    x.linkedinUrl || "",
+    x.status || "",
+    x.reviewedBy || "",
+    x.reviewedAt ? fmtDate(x.reviewedAt) : "",
+    x.reviewNotes || "",
+    x.message || ""
+  ]);
+
+  const csv = [headers, ...rows]
+    .map(row => row.map(value => {
+      const safe = String(value).replace(/"/g, '""');
+      return `"${safe}"`;
+    }).join(","))
+    .join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "asianloop-career-applications.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+}
+  
   $("filterBtn").addEventListener("click", loadApplications);
+
+  $("exportBtn").addEventListener("click", exportCSV);
 
   $("clearBtn").addEventListener("click", () => {
     ["fType","fDepartment","fBackground","fQualification","fStatus","fQ"].forEach(id => $(id).value = "");
