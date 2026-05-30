@@ -314,38 +314,61 @@
     $("statInternship").textContent = items.filter(x => x.applicationType === "internship").length;
     $("statTalent").textContent = items.filter(x => x.status === "talent_pool").length;
   }
+function renderTable(items){
+  const tb = $("appTable");
+  tb.innerHTML = "";
 
-  function renderTable(items){
-    const tb = $("appTable");
-    tb.innerHTML = "";
+  items.forEach((x) => {
+    const tr = document.createElement("tr");
 
-    items.forEach((x) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${fmtDate(x.createdAt)}</td>
-        <td><strong>${x.title || ""} ${x.fullName || ""}</strong><br><span class="muted">${x.email || ""}</span></td>
-        <td><span class="pill">${x.applicationType || "-"}</span></td>
-        <td>${x.interestedDepartment || "-"}</td>
-        <td>${x.qualification || "-"}</td>
-  <td><span class="pill">${statusLabel(x.status)}</span></td>
-<td>${x.reviewedBy || "-"}</td>
-<td>${x.reviewedAt ? fmtDate(x.reviewedAt) : "-"}</td>
-<td>
-  <button class="btn primary" data-id="${x._id}">View</button>
-  <button class="btn" data-delete="${x._id}" style="margin-left:6px;">Delete</button>
-</td>      `;
-      tb.appendChild(tr);
+    tr.innerHTML = `
+      <td>${fmtDate(x.createdAt)}</td>
+      <td>
+        <strong>${x.title || ""} ${x.fullName || ""}</strong><br>
+        <span class="muted">${x.email || ""}</span>
+      </td>
+      <td>
+        <span class="pill">${x.applicationType || "-"}</span>
+      </td>
+      <td>${x.interestedDepartment || "-"}</td>
+      <td>${x.qualification || "-"}</td>
+      <td>
+        <span class="pill">${statusLabel(x.status)}</span>
+      </td>
+      <td>${x.reviewedBy || "-"}</td>
+      <td>${x.reviewedAt ? fmtDate(x.reviewedAt) : "-"}</td>
+      <td>
+        <button class="btn primary" data-id="${x._id}">
+          View
+        </button>
+
+        <button
+          class="btn"
+          data-delete="${x._id}"
+          style="margin-left:6px;"
+        >
+          Delete
+        </button>
+      </td>
+    `;
+
+    tb.appendChild(tr);
+  });
+
+  // VIEW BUTTONS
+  tb.querySelectorAll("button[data-id]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openDetail(btn.dataset.id);
     });
+  });
 
-    tb.querySelectorAll("button[data-id]").forEach(btn => {
-      btn.addEventListener("click", () => openDetail(btn.dataset.id));
-    });
-  }
-
+  // DELETE BUTTONS
   tb.querySelectorAll("button[data-delete]").forEach(btn => {
-  btn.addEventListener("click", () => deleteApplication(btn.dataset.delete));
-});
-
+    btn.addEventListener("click", () => {
+      deleteApplication(btn.dataset.delete);
+    });
+  });
+}
   async function openDetail(id){
     $("reviewMsg").textContent = "";
 
