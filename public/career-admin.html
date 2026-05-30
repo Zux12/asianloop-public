@@ -153,8 +153,10 @@
               <th>Type</th>
               <th>Department</th>
               <th>Qualification</th>
-              <th>Status</th>
-              <th>Action</th>
+<th>Status</th>
+<th>Reviewed By</th>
+<th>Last Reviewed</th>
+<th>Action</th>
             </tr>
           </thead>
           <tbody id="appTable"></tbody>
@@ -325,8 +327,10 @@
         <td><span class="pill">${x.applicationType || "-"}</span></td>
         <td>${x.interestedDepartment || "-"}</td>
         <td>${x.qualification || "-"}</td>
-        <td>${statusLabel(x.status)}</td>
-        <td><button class="btn primary" data-id="${x._id}">View</button></td>
+  <td><span class="pill">${statusLabel(x.status)}</span></td>
+<td>${x.reviewedBy || "-"}</td>
+<td>${x.reviewedAt ? fmtDate(x.reviewedAt) : "-"}</td>
+<td><button class="btn primary" data-id="${x._id}">View</button></td>
       `;
       tb.appendChild(tr);
     });
