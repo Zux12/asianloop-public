@@ -7,6 +7,28 @@ const { sendCareerEmails } = require("../utils/mailer");
 
 const router = express.Router();
 
+function requireCareerAdmin(req, res, next) {
+  const auth = req.headers.authorization || "";
+
+  if (!auth.startsWith("Basic ")) {
+    res.setHeader("WWW-Authenticate", "Basic realm='Career Admin'");
+    return res.status(401).send("Authentication required");
+  }
+
+  const decoded = Buffer.from(auth.split(" ")[1], "base64").toString("utf8");
+  const [user, pass] = decoded.split(":");
+
+  if (
+    user === process.env.CAREER_ADMIN_USER &&
+    pass === process.env.CAREER_ADMIN_PASSWORD
+  ) {
+    return next();
+  }
+
+  res.setHeader("WWW-Authenticate", "Basic realm='Career Admin'");
+  return res.status(401).send("Invalid username or password");
+}
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -175,5 +197,119 @@ router.post(
     }
   }
 );
+
+
+router.get("/admin/applications", requireCareerAdmin, async (req, res) => {
+  try {
+    const { type, department, background, qualification, status, q } = req.query;
+
+    const filter = {};
+
+    if (type) filter.applicationType = type;
+    if (department) filter.interestedDepartment = department;
+    if (background) filter.background = background;
+    if (qualification) filter.qualification = qualification;
+    if (status) filter.status = status;
+
+    if (q) {
+      filter.$or = [
+        { fullName: new RegExp(q, "i") },
+        { email: new RegExp(q, "i") },
+        { phone: new RegExp(q, "i") }
+      ];
+    }
+
+    const items = await CareerApplication.find(filter)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    res.json({ ok: true, items });
+  } catch (err) {
+    console.error("Admin list error:", err);
+    res.status(500).json({ ok: false, message: "Unable to load applications." });
+  }
+});
+
+router.get("/admin/application/:id", requireCareerAdmin, async (req, res) => {
+  try {
+    const item = await CareerApplication.findById(req.params.id).lean();
+
+    if (!item) {
+      return res.status(404).json({ ok: false, message: "Application not found." });
+    }
+
+    res.json({ ok: true, item });
+  } catch (err) {
+    console.error("Admin detail error:", err);
+    res.status(500).json({ ok: false, message: "Unable to load application." });
+  }
+});
+
+router.get("/admin/download/:fileId", requireCareerAdmin, async (req, res) => {
+  try {
+    const bucket = getBucket();
+    const fileId = new mongoose.Types.ObjectId(req.params.fileId);
+
+    const files = await mongoose.connection.db
+      .collection("career_uploads.files")
+      .find({ _id: fileId })
+      .toArray();
+
+    if (!files.length) {
+      return res.status(404).send("File not found.");
+    }
+
+    const file = files[0];
+
+    res.setHeader("Content-Type", file.contentType || "application/octet-stream");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${file.filename}"`
+    );
+
+    bucket.openDownloadStream(fileId).pipe(res);
+  } catch (err) {
+    console.error("Admin download error:", err);
+    res.status(500).send("Unable to download file.");
+  }
+});
+
+router.patch("/admin/status/:id", requireCareerAdmin, async (req, res) => {
+  try {
+    const { status, reviewNotes, reviewedBy } = req.body;
+
+    const allowedStatus = [
+      "submitted",
+      "reviewing",
+      "shortlisted",
+      "rejected",
+      "talent_pool"
+    ];
+
+    if (!allowedStatus.includes(status)) {
+      return res.status(400).json({ ok: false, message: "Invalid status." });
+    }
+
+    const updated = await CareerApplication.findByIdAndUpdate(
+      req.params.id,
+      {
+        status,
+        reviewNotes: reviewNotes || "",
+        reviewedBy: reviewedBy || "",
+        reviewedAt: new Date()
+      },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ ok: false, message: "Application not found." });
+    }
+
+    res.json({ ok: true, item: updated });
+  } catch (err) {
+    console.error("Admin status error:", err);
+    res.status(500).json({ ok: false, message: "Unable to update status." });
+  }
+});
 
 module.exports = router;
