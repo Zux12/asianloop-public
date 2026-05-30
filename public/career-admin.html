@@ -330,8 +330,10 @@
   <td><span class="pill">${statusLabel(x.status)}</span></td>
 <td>${x.reviewedBy || "-"}</td>
 <td>${x.reviewedAt ? fmtDate(x.reviewedAt) : "-"}</td>
-<td><button class="btn primary" data-id="${x._id}">View</button></td>
-      `;
+<td>
+  <button class="btn primary" data-id="${x._id}">View</button>
+  <button class="btn" data-delete="${x._id}" style="margin-left:6px;">Delete</button>
+</td>      `;
       tb.appendChild(tr);
     });
 
@@ -339,6 +341,10 @@
       btn.addEventListener("click", () => openDetail(btn.dataset.id));
     });
   }
+
+  tb.querySelectorAll("button[data-delete]").forEach(btn => {
+  btn.addEventListener("click", () => deleteApplication(btn.dataset.delete));
+});
 
   async function openDetail(id){
     $("reviewMsg").textContent = "";
@@ -387,6 +393,35 @@
 
     $("modal").style.display = "block";
   }
+
+
+  async function deleteApplication(id){
+  const item = allItems.find(x => x._id === id);
+  const name = item ? `${item.title || ""} ${item.fullName || ""}` : "this applicant";
+
+  const confirmDelete = confirm(
+    `Are you sure you want to delete ${name}?\n\nThis will permanently delete the applicant record, CV and cover letter.`
+  );
+
+  if(!confirmDelete) return;
+
+  try{
+    const res = await fetch("/api/career/admin/application/" + id, {
+      method: "DELETE"
+    });
+
+    const data = await res.json();
+
+    if(!res.ok || !data.ok){
+      throw new Error(data.message || "Unable to delete application.");
+    }
+
+    alert("Application deleted successfully.");
+    await loadApplications();
+  }catch(err){
+    alert(err.message || "Unable to delete application.");
+  }
+}
 
   async function saveReview(){
     const id = $("currentId").value;
