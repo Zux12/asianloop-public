@@ -312,4 +312,48 @@ router.patch("/admin/status/:id", requireCareerAdmin, async (req, res) => {
   }
 });
 
+
+
+router.delete("/admin/application/:id", requireCareerAdmin, async (req, res) => {
+  try {
+    const application = await CareerApplication.findById(req.params.id);
+
+    if (!application) {
+      return res.status(404).json({
+        ok: false,
+        message: "Application not found."
+      });
+    }
+
+    const bucket = getBucket();
+
+    const fileIds = [
+      application.cvFile?.fileId,
+      application.coverLetterFile?.fileId
+    ].filter(Boolean);
+
+    for (const fileId of fileIds) {
+      try {
+        await bucket.delete(new mongoose.Types.ObjectId(fileId));
+      } catch (fileErr) {
+        console.warn("GridFS file delete warning:", fileErr.message);
+      }
+    }
+
+    await CareerApplication.findByIdAndDelete(req.params.id);
+
+    res.json({
+      ok: true,
+      message: "Application and uploaded files deleted successfully."
+    });
+  } catch (err) {
+    console.error("Admin delete error:", err);
+    res.status(500).json({
+      ok: false,
+      message: "Unable to delete application."
+    });
+  }
+});
+
+
 module.exports = router;
