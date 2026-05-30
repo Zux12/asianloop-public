@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Career Admin — Asianloop</title>
+
+  <link rel="icon" href="/assets/img/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+
+  <style>
+    .admin-wrap{padding:50px 0}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
+    .stat-card{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:#fff}
+    .stat-card strong{display:block;font-size:26px;color:var(--brand-primary)}
+    .filters{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:18px}
+    .filters input,.filters select,.admin-table select,.admin-table textarea{
+      width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit
+    }
+    .table-wrap{overflow:auto;margin-top:18px}
+    table{width:100%;border-collapse:collapse;background:#fff}
+    th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px;vertical-align:top}
+    th{color:var(--brand-primary);background:#f8fafc}
+    .pill{display:inline-flex;padding:4px 10px;border-radius:999px;background:rgba(30,42,90,.08);font-size:12px;font-weight:700;color:var(--brand-primary)}
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:3000;padding:18px;overflow:auto}
+    .modal-card{max-width:920px;margin:40px auto;background:#fff;border-radius:18px;padding:22px;border:1px solid var(--line)}
+    .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .detail-box{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+    .detail-box h3{margin:0 0 8px;color:var(--brand-primary)}
+    .detail-box p{margin:6px 0;color:var(--muted)}
+    .admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    @media(max-width:900px){
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .filters{grid-template-columns:1fr}
+      .detail-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo.jpg" alt="Asianloop logo">
+      <span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/career.html">Career</a>
+      <a class="active" href="/career-admin.html">Career Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-wrap">
+  <div class="container">
+    <div class="kicker">Asianloop HR Dashboard</div>
+    <h1 class="page-title">Career Applications Admin</h1>
+    <p class="lead">View, filter, download and update career or internship applications.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><span>Total Applications</span><strong id="statTotal">0</strong></div>
+      <div class="stat-card"><span>Career</span><strong id="statCareer">0</strong></div>
+      <div class="stat-card"><span>Internship</span><strong id="statInternship">0</strong></div>
+      <div class="stat-card"><span>Talent Pool</span><strong id="statTalent">0</strong></div>
+    </div>
+
+    <section class="card" style="margin-top:22px;">
+      <h2>Filters</h2>
+
+      <div class="filters">
+        <select id="fType">
+          <option value="">All Types</option>
+          <option value="career">Career</option>
+          <option value="internship">Internship</option>
+        </select>
+
+        <select id="fDepartment">
+          <option value="">All Departments</option>
+          <option>Calibration Laboratory</option>
+          <option>Engineering & Projects</option>
+          <option>Digital Systems & AI</option>
+          <option>Business Development</option>
+          <option>Corporate Management</option>
+          <option>Research & Innovation</option>
+          <option>Training & Events</option>
+          <option>Finance & Administration</option>
+          <option>Human Resource & Talent</option>
+          <option>Internship Programme</option>
+          <option>Others</option>
+        </select>
+
+        <select id="fBackground">
+          <option value="">All Backgrounds</option>
+          <option>Engineering</option>
+          <option>Calibration & Metrology</option>
+          <option>Software & AI</option>
+          <option>Sales & Business Development</option>
+          <option>Finance</option>
+          <option>Administration</option>
+          <option>Human Resource</option>
+          <option>Operations</option>
+          <option>Legal / Compliance</option>
+          <option>Marketing / Communications</option>
+          <option>Fresh Graduate</option>
+          <option>Student</option>
+          <option>Others</option>
+        </select>
+
+        <select id="fQualification">
+          <option value="">All Qualifications</option>
+          <option>SPM / O-Level</option>
+          <option>STPM / Foundation / A-Level</option>
+          <option>Certificate</option>
+          <option>Diploma</option>
+          <option>Bachelor's Degree</option>
+          <option>Master's Degree</option>
+          <option>PhD</option>
+          <option>Professional Certification</option>
+          <option>Others</option>
+        </select>
+
+        <select id="fStatus">
+          <option value="">All Status</option>
+          <option value="submitted">Submitted</option>
+          <option value="reviewing">Reviewing</option>
+          <option value="shortlisted">Shortlisted</option>
+          <option value="rejected">Rejected</option>
+          <option value="talent_pool">Talent Pool</option>
+        </select>
+
+        <input id="fQ" placeholder="Search name, email, phone">
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn primary" id="filterBtn">Apply Filter</button>
+        <button class="btn" id="clearBtn">Clear</button>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:22px;">
+      <h2>Applications</h2>
+      <div id="adminMsg" class="muted" style="margin-top:8px;">Loading applications...</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Department</th>
+              <th>Qualification</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="appTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <div class="kicker" id="modalType">Application</div>
+        <h2 id="modalName" style="margin:6px 0 0;color:var(--brand-primary);">Applicant</h2>
+      </div>
+      <button class="btn" id="closeModal">Close</button>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h3>Personal Information</h3>
+        <p><strong>Email:</strong> <span id="dEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="dPhone"></span></p>
+        <p><strong>Nationality:</strong> <span id="dNationality"></span></p>
+        <p><strong>Current Location:</strong> <span id="dLocation"></span></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Application Information</h3>
+        <p><strong>Background:</strong> <span id="dBackground"></span></p>
+        <p><strong>Department:</strong> <span id="dDepartment"></span></p>
+        <p><strong>Qualification:</strong> <span id="dQualification"></span></p>
+        <p><strong>Experience:</strong> <span id="dExperience"></span></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Salary / Availability</h3>
+        <p><strong>Current Salary:</strong> <span id="dCurrentSalary"></span></p>
+        <p><strong>Expected Salary:</strong> <span id="dExpectedSalary"></span></p>
+        <p><strong>Notice Period:</strong> <span id="dNotice"></span></p>
+        <p><strong>LinkedIn:</strong> <span id="dLinkedin"></span></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Documents</h3>
+        <div class="admin-actions">
+          <a class="btn primary" id="cvLink" target="_blank">Download CV</a>
+          <a class="btn secondary" id="coverLink" target="_blank">Download Cover Letter</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-box" style="margin-top:14px;">
+      <h3>Message</h3>
+      <p id="dMessage">-</p>
+    </div>
+
+    <div class="detail-box" style="margin-top:14px;">
+      <h3>Review Update</h3>
+
+      <input type="hidden" id="currentId">
+
+      <div class="two-col">
+        <div>
+          <label>Status</label>
+          <select id="reviewStatus">
+            <option value="submitted">Submitted</option>
+            <option value="reviewing">Reviewing</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="rejected">Rejected</option>
+            <option value="talent_pool">Talent Pool</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Reviewed By</label>
+          <input id="reviewedBy" placeholder="Your name / HR name">
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Review Notes</label>
+        <textarea id="reviewNotes" rows="4" placeholder="Add internal review notes here."></textarea>
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn primary" id="saveReview">Save Review</button>
+      </div>
+
+      <div id="reviewMsg" class="muted" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="small">© <span id="year"></span> Asianloop Sdn Bhd. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  let allItems = [];
+
+  const $ = (id) => document.getElementById(id);
+
+  function fmtDate(d){
+    if(!d) return "-";
+    return new Date(d).toLocaleString();
+  }
+
+  function statusLabel(s){
+    return String(s || "submitted").replace("_", " ");
+  }
+
+  function buildQuery(){
+    const params = new URLSearchParams();
+
+    if($("fType").value) params.set("type", $("fType").value);
+    if($("fDepartment").value) params.set("department", $("fDepartment").value);
+    if($("fBackground").value) params.set("background", $("fBackground").value);
+    if($("fQualification").value) params.set("qualification", $("fQualification").value);
+    if($("fStatus").value) params.set("status", $("fStatus").value);
+    if($("fQ").value.trim()) params.set("q", $("fQ").value.trim());
+
+    return params.toString();
+  }
+
+  async function loadApplications(){
+    $("adminMsg").textContent = "Loading applications...";
+
+    const qs = buildQuery();
+    const url = "/api/career/admin/applications" + (qs ? "?" + qs : "");
+
+    try{
+      const res = await fetch(url, { cache: "no-store" });
+      if(!res.ok) throw new Error("Unable to load applications.");
+      const data = await res.json();
+
+      allItems = data.items || [];
+      renderStats(allItems);
+      renderTable(allItems);
+
+      $("adminMsg").textContent = allItems.length
+        ? `${allItems.length} application(s) loaded.`
+        : "No applications found.";
+    }catch(err){
+      $("adminMsg").textContent = err.message;
+    }
+  }
+
+  function renderStats(items){
+    $("statTotal").textContent = items.length;
+    $("statCareer").textContent = items.filter(x => x.applicationType === "career").length;
+    $("statInternship").textContent = items.filter(x => x.applicationType === "internship").length;
+    $("statTalent").textContent = items.filter(x => x.status === "talent_pool").length;
+  }
+
+  function renderTable(items){
+    const tb = $("appTable");
+    tb.innerHTML = "";
+
+    items.forEach((x) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${fmtDate(x.createdAt)}</td>
+        <td><strong>${x.title || ""} ${x.fullName || ""}</strong><br><span class="muted">${x.email || ""}</span></td>
+        <td><span class="pill">${x.applicationType || "-"}</span></td>
+        <td>${x.interestedDepartment || "-"}</td>
+        <td>${x.qualification || "-"}</td>
+        <td>${statusLabel(x.status)}</td>
+        <td><button class="btn primary" data-id="${x._id}">View</button></td>
+      `;
+      tb.appendChild(tr);
+    });
+
+    tb.querySelectorAll("button[data-id]").forEach(btn => {
+      btn.addEventListener("click", () => openDetail(btn.dataset.id));
+    });
+  }
+
+  async function openDetail(id){
+    $("reviewMsg").textContent = "";
+
+    const res = await fetch("/api/career/admin/application/" + id, { cache: "no-store" });
+    if(!res.ok){
+      alert("Unable to load application.");
+      return;
+    }
+
+    const data = await res.json();
+    const x = data.item;
+
+    $("currentId").value = x._id;
+    $("modalType").textContent = x.applicationType === "internship" ? "Internship Application" : "Career Application";
+    $("modalName").textContent = `${x.title || ""} ${x.fullName || ""}`;
+
+    $("dEmail").textContent = x.email || "-";
+    $("dPhone").textContent = x.phone || "-";
+    $("dNationality").textContent = x.nationality || "-";
+    $("dLocation").textContent = x.currentLocation || "-";
+
+    $("dBackground").textContent = x.background || "-";
+    $("dDepartment").textContent = x.interestedDepartment || "-";
+    $("dQualification").textContent = x.qualification || "-";
+    $("dExperience").textContent = `${x.yearsExperience || 0} year(s)`;
+
+    $("dCurrentSalary").textContent = x.currentSalary || "-";
+    $("dExpectedSalary").textContent = x.expectedSalary || "-";
+    $("dNotice").textContent = x.noticePeriod || "-";
+
+    if(x.linkedinUrl){
+      $("dLinkedin").innerHTML = `<a href="${x.linkedinUrl}" target="_blank" rel="noopener">${x.linkedinUrl}</a>`;
+    } else {
+      $("dLinkedin").textContent = "-";
+    }
+
+    $("dMessage").textContent = x.message || "-";
+
+    $("cvLink").href = x.cvFile?.fileId ? "/api/career/admin/download/" + x.cvFile.fileId : "#";
+    $("coverLink").href = x.coverLetterFile?.fileId ? "/api/career/admin/download/" + x.coverLetterFile.fileId : "#";
+
+    $("reviewStatus").value = x.status || "submitted";
+    $("reviewedBy").value = x.reviewedBy || "";
+    $("reviewNotes").value = x.reviewNotes || "";
+
+    $("modal").style.display = "block";
+  }
+
+  async function saveReview(){
+    const id = $("currentId").value;
+
+    $("reviewMsg").textContent = "Saving review...";
+
+    try{
+      const res = await fetch("/api/career/admin/status/" + id, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status: $("reviewStatus").value,
+          reviewedBy: $("reviewedBy").value,
+          reviewNotes: $("reviewNotes").value
+        })
+      });
+
+      const data = await res.json();
+      if(!res.ok || !data.ok) throw new Error(data.message || "Unable to save review.");
+
+      $("reviewMsg").textContent = "Review saved successfully.";
+      await loadApplications();
+    }catch(err){
+      $("reviewMsg").textContent = err.message;
+    }
+  }
+
+  $("filterBtn").addEventListener("click", loadApplications);
+
+  $("clearBtn").addEventListener("click", () => {
+    ["fType","fDepartment","fBackground","fQualification","fStatus","fQ"].forEach(id => $(id).value = "");
+    loadApplications();
+  });
+
+  $("closeModal").addEventListener("click", () => {
+    $("modal").style.display = "none";
+  });
+
+  $("saveReview").addEventListener("click", saveReview);
+
+  $("year").textContent = new Date().getFullYear();
+
+  loadApplications();
+</script>
+
+</body>
+</html>
