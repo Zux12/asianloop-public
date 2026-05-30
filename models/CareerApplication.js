@@ -43,11 +43,25 @@ const careerApplicationSchema = new mongoose.Schema(
       size: Number
     },
 
-    status: {
-      type: String,
-      enum: ["submitted", "reviewing", "shortlisted", "rejected", "talent_pool"],
-      default: "submitted"
-    },
+status: {
+  type: String,
+  enum: ["submitted", "reviewing", "shortlisted", "rejected", "talent_pool"],
+  default: "submitted"
+},
+
+reviewNotes: {
+  type: String,
+  default: ""
+},
+
+reviewedBy: {
+  type: String,
+  default: ""
+},
+
+reviewedAt: {
+  type: Date
+},
 
     consent: {
       type: Boolean,
