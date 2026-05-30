@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const careerRoutes = require("./routes/career");
+const maltechRoutes = require("./routes/maltech");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/career", careerRoutes);
+app.use("/api/maltech", maltechRoutes);
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI;
