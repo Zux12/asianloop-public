@@ -27,6 +27,32 @@ async function sendCareerEmails({ application, cvBuffer, cvFile, coverBuffer, co
       <h2>New ${typeLabel}</h2>
       <p>A new application has been submitted through the Asianloop website.</p>
 
+      <hr>
+
+<h3>Quick Access</h3>
+
+<p>
+  <strong>Application ID:</strong>
+  ${application._id}
+</p>
+
+<p>
+  <a href="https://www.asian-loop.com/career-admin.html"
+     target="_blank"
+     style="
+       background:#1E2A5A;
+       color:#ffffff;
+       padding:10px 18px;
+       text-decoration:none;
+       border-radius:6px;
+       display:inline-block;
+     ">
+     Open Career Admin Dashboard
+  </a>
+</p>
+
+<hr>
+
       <h3>Applicant Details</h3>
       <p><strong>Name:</strong> ${application.title} ${application.fullName}</p>
       <p><strong>Email:</strong> ${application.email}</p>
