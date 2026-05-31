@@ -45,6 +45,57 @@ app.get("/:page", (req, res, next) => {
   res.sendFile(file, (err) => (err ? next() : null));
 });
 
+
+
+
+
+
+const { sendCareerEmails } = require("./utils/mailer");
+
+app.get("/test-email", async (req, res) => {
+  try {
+    const nodemailer = require("nodemailer");
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 465),
+      secure: String(process.env.SMTP_SECURE) === "true",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+      }
+    });
+
+    const info = await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: "career@asian-loop.com",
+      subject: "SMTP Test",
+      html: "<h2>SMTP Test Successful</h2>"
+    });
+
+    res.json({
+      ok: true,
+      messageId: info.messageId
+    });
+  } catch (err) {
+    console.error("SMTP TEST ERROR:", err);
+    res.status(500).json({
+      ok: false,
+      error: err.message
+    });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 // Fallback to home
 app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
