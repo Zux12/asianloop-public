@@ -5,6 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MALTECH Training Series</title>
   <style>
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+.topbar{
+  background:white;
+  border-bottom:1px solid #dbe8f5;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.nav{
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logos{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  min-height:120px;
+}
+
+.logos img{
+  max-height:100px;
+  width:auto;
+  object-fit:contain;
+}
+
+.navlinks{
+  display:flex;
+  gap:20px;
+  font-size:14px;
+  font-weight:700;
+  color:#20314d;
+}
+
+.navlinks a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:13px 20px;
+  border-radius:12px;
+  font-weight:800;
+  border:1px solid #0b2b66;
+  color:#0b2b66;
+  background:white;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#0b2b66,#005bbb);
+  color:white;
+  border:none;
+  box-shadow:0 12px 28px rgba(11,43,102,.22);
+}
+
+@media(max-width:900px){
+  .navlinks{
+    display:none;
+  }
+}
+
+
+    
     * {
       box-sizing: border-box;
       margin: 0;
