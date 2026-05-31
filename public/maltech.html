@@ -460,7 +460,37 @@
       .hero-grid,.agenda{grid-template-columns:1fr}
       .cards,.trainers{grid-template-columns:1fr}
       .modules{grid-template-columns:repeat(2,1fr)}
-      .navlinks{display:none}
+.nav{
+  height:auto;
+  min-height:120px;
+  flex-direction:column;
+  padding:14px 0;
+  gap:12px;
+}
+
+.navlinks{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  font-size:13px;
+}
+
+.navlinks a{
+  background:#f4f9ff;
+  border:1px solid #dbe8f5;
+  padding:8px 12px;
+  border-radius:999px;
+}
+
+.logos{
+  min-height:auto;
+}
+
+.logos img{
+  max-height:80px;
+}
+      
       .hero-meta,.form-grid{grid-template-columns:1fr}
     }
 
