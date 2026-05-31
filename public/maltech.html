@@ -748,7 +748,7 @@
 
       <div class="form-actions">
         <button type="button" class="btn" id="addParticipant">+ Add Participant</button>
-        <button type="submit" class="btn primary">Submit Registration</button>
+<button type="submit" class="btn primary" id="submitBtn">Submit Registration</button>
       </div>
 
       <div id="formNotice" class="notice"></div>
@@ -833,6 +833,10 @@
   form.addEventListener("submit", async function(e) {
     e.preventDefault();
 
+    const submitBtn = document.getElementById("submitBtn");
+submitBtn.disabled = true;
+submitBtn.textContent = "Submitting...";
+
     notice.className = "notice";
     notice.textContent = "";
 
@@ -882,8 +886,14 @@
       participantsWrap.innerHTML = "";
       participantCount = 0;
       addParticipant();
+            submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Registration";
 
     } catch (err) {
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Registration";
+
       notice.className = "notice err";
       notice.textContent = "Submission failed. Please try again or email info@asian-loop.com directly.";
     }
