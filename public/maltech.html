@@ -378,11 +378,37 @@
   gap:28px;
 }
 
-.invitee-logos img{
-  height:75px;
-  width:auto;
+.logo-tile{
+  width:130px;
+  height:105px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  box-shadow:0 8px 20px rgba(15,50,90,.05);
+}
+
+.logo-tile img{
+  max-width:95px;
+  max-height:45px;
   object-fit:contain;
-  transition:.3s;
+}
+
+.logo-tile span{
+  font-size:12px;
+  font-weight:800;
+  color:var(--blue);
+  text-align:center;
+  line-height:1.2;
+}
+
+.logo-tile:hover{
+  transform:scale(1.05);
 }
 
 .invitee-logos img:hover{
@@ -777,7 +803,9 @@ A comprehensive two-day industrial training program designed to develop strong f
 </section>
 
 
-<section class="section">
+
+
+  <section class="section">
 
   <div class="container">
 
@@ -796,12 +824,37 @@ A comprehensive two-day industrial training program designed to develop strong f
         <h3>Oil & Gas Operators</h3>
 
         <div class="invitee-logos">
-          <img src="https://upload.wikimedia.org/wikipedia/en/7/72/Petronas_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Shell_logo.svg">
-          <img src="https://www.pttep.com/assets/images/logo.png">
-          <img src="https://www.petroleumsarawak.com/wp-content/uploads/2022/08/PETROS-Logo.png">
-          <img src="https://www.sarawakenergy.com/themes/custom/seb/logo.svg">
-          <img src="https://sec.com.my/wp-content/uploads/2022/03/logo-sec.png">
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/en/7/72/Petronas_logo.svg" alt="PETRONAS">
+            <span>PETRONAS</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Shell_logo.svg" alt="Shell">
+            <span>Shell Malaysia</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.pttep.com/assets/images/logo.png" alt="PTTEP">
+            <span>PTTEP</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.petroleumsarawak.com/wp-content/uploads/2022/08/PETROS-Logo.png" alt="PETROS">
+            <span>PETROS</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.sarawakenergy.com/themes/custom/seb/logo.svg" alt="Sarawak Energy">
+            <span>Sarawak Energy</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://sec.com.my/wp-content/uploads/2022/03/logo-sec.png" alt="SEC">
+            <span>Sabah Energy</span>
+          </div>
+
         </div>
       </div>
 
@@ -809,10 +862,27 @@ A comprehensive two-day industrial training program designed to develop strong f
         <h3>Government, Standards & Regulatory Bodies</h3>
 
         <div class="invitee-logos">
-          <img src="https://www.mohe.gov.my/images/logo-kpt.png">
-          <img src="https://www.mosti.gov.my/wp-content/uploads/2021/12/logo-mosti.png">
-          <img src="https://www.sirim.my/wp-content/uploads/2021/03/sirim-logo.png">
-          <img src="https://www.hrdcorp.gov.my/wp-content/uploads/2023/02/HRD-Corp-Logo.png">
+
+          <div class="logo-tile">
+            <img src="https://www.mohe.gov.my/images/logo-kpt.png" alt="KPT">
+            <span>KPT</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.mosti.gov.my/wp-content/uploads/2021/12/logo-mosti.png" alt="MOSTI">
+            <span>MOSTI</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.sirim.my/wp-content/uploads/2021/03/sirim-logo.png" alt="SIRIM">
+            <span>SIRIM</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.hrdcorp.gov.my/wp-content/uploads/2023/02/HRD-Corp-Logo.png" alt="HRD Corp">
+            <span>HRD Corp</span>
+          </div>
+
         </div>
       </div>
 
@@ -820,13 +890,42 @@ A comprehensive two-day industrial training program designed to develop strong f
         <h3>Universities & Research Institutions</h3>
 
         <div class="invitee-logos">
-          <img src="https://www.utp.edu.my/SiteAssets/Images/utp-logo.png">
-          <img src="https://www.um.edu.my/images/logo-um.png">
-          <img src="https://www.upm.edu.my/assets/images/logo-upm.png">
-          <img src="https://www.ukm.my/portal/wp-content/themes/ukmportal/images/logo-ukm.png">
-          <img src="https://www.usm.my/images/logo-usm.png">
-          <img src="https://corporate.utm.my/wp-content/uploads/sites/2/2020/03/logo-utm.png">
-          <img src="https://www.uitm.edu.my/images/logo-uitm.png">
+
+          <div class="logo-tile">
+            <img src="https://www.utp.edu.my/SiteAssets/Images/utp-logo.png" alt="UTP">
+            <span>UTP</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.um.edu.my/images/logo-um.png" alt="UM">
+            <span>University of Malaya</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.upm.edu.my/assets/images/logo-upm.png" alt="UPM">
+            <span>UPM</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.ukm.my/portal/wp-content/themes/ukmportal/images/logo-ukm.png" alt="UKM">
+            <span>UKM</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.usm.my/images/logo-usm.png" alt="USM">
+            <span>USM</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://corporate.utm.my/wp-content/uploads/sites/2/2020/03/logo-utm.png" alt="UTM">
+            <span>UTM</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://www.uitm.edu.my/images/logo-uitm.png" alt="UiTM">
+            <span>UiTM</span>
+          </div>
+
         </div>
       </div>
 
@@ -834,13 +933,42 @@ A comprehensive two-day industrial training program designed to develop strong f
         <h3>Technology & Industry Participants</h3>
 
         <div class="invitee-logos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Yokogawa_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emerson_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Endress_Hauser_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Honeywell_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/ABB_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/WIKA_logo.svg">
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Yokogawa_logo.svg" alt="Yokogawa">
+            <span>Yokogawa</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emerson_logo.svg" alt="Emerson">
+            <span>Emerson</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Endress_Hauser_logo.svg" alt="Endress+Hauser">
+            <span>Endress+Hauser</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Honeywell_logo.svg" alt="Honeywell">
+            <span>Honeywell</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/ABB_logo.svg" alt="ABB">
+            <span>ABB</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" alt="Siemens">
+            <span>Siemens</span>
+          </div>
+
+          <div class="logo-tile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/WIKA_logo.svg" alt="WIKA">
+            <span>WIKA</span>
+          </div>
+
         </div>
       </div>
 
