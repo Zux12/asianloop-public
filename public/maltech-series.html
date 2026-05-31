@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MALTECH Training Series</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #172033;
+      padding: 30px;
+    }
+
+    .maltech-section {
+      max-width: 1200px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: 0 18px 45px rgba(20, 35, 70, 0.08);
+      border: 1px solid #e5eaf3;
+    }
+
+    .maltech-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #edf1f7;
+      padding-bottom: 24px;
+    }
+
+    .maltech-title h1 {
+      font-size: 34px;
+      letter-spacing: 1px;
+      color: #0b2d5c;
+      margin-bottom: 8px;
+    }
+
+    .maltech-title p {
+      font-size: 15px;
+      color: #4a5c75;
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .maltech-badge {
+      background: linear-gradient(135deg, #0b2d5c, #0d6efd);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 18px;
+      text-align: center;
+      min-width: 190px;
+      box-shadow: 0 12px 25px rgba(13, 110, 253, 0.22);
+    }
+
+    .maltech-badge strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .maltech-badge span {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .partners {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .partner-card {
+      background: #f7faff;
+      border: 1px solid #e1e9f5;
+      padding: 14px;
+      border-radius: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: #30445f;
+      font-weight: 600;
+    }
+
+    .calendar-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .calendar-title h2 {
+      font-size: 24px;
+      color: #0b2d5c;
+    }
+
+    .calendar-note {
+      font-size: 13px;
+      color: #65748b;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .training-card {
+      position: relative;
+      min-height: 210px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid #dfe8f5;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      overflow: hidden;
+    }
+
+    .training-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(20, 50, 100, 0.12);
+      border-color: #0d6efd;
+    }
+
+    .training-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, #0b2d5c, #0d6efd, #d4af37);
+    }
+
+    .month {
+      font-size: 13px;
+      font-weight: bold;
+      color: #0d6efd;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .training-card h3 {
+      font-size: 19px;
+      color: #172033;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .training-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: #52637a;
+      margin-bottom: 16px;
+    }
+
+    .level {
+      display: inline-block;
+      width: fit-content;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #edf5ff;
+      color: #0b5ed7;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .click-text {
+      position: absolute;
+      bottom: 18px;
+      left: 20px;
+      font-size: 12px;
+      color: #8a6d1d;
+      font-weight: bold;
+    }
+
+    .info-panel {
+      margin-top: 30px;
+      background: #0b2d5c;
+      color: white;
+      border-radius: 22px;
+      padding: 28px;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .info-panel.active {
+      display: block;
+    }
+
+    .info-panel h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .info-panel .info-sub {
+      color: #cddbf0;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    .info-box small {
+      display: block;
+      color: #a9c2e8;
+      margin-bottom: 7px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .info-box strong {
+      font-size: 15px;
+    }
+
+    .info-panel ul {
+      margin-left: 18px;
+      line-height: 1.8;
+      color: #edf4ff;
+      font-size: 14px;
+    }
+
+    .close-btn {
+      margin-top: 22px;
+      border: none;
+      background: #d4af37;
+      color: #10223d;
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .maltech-header {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      .maltech-section {
+        padding: 22px;
+      }
+
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .maltech-title h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="maltech-section">
+  <div class="maltech-header">
+    <div class="maltech-title">
+      <h1>MALTECH</h1>
+      <p><strong>Malaysian Advanced Learning for Technology, Engineering & Competency Hub</strong></p>
+      <p>An initiative by <strong>META</strong> as the Training & Knowledge Provider and <strong>ASIANLOOP</strong> as Course Management.</p>
+    </div>
+
+    <div class="maltech-badge">
+      <strong>2026</strong>
+      <span>Training Series Calendar</span>
+    </div>
+  </div>
+
+  <div class="partners">
+    <div class="partner-card">KPT</div>
+    <div class="partner-card">HRDF / HRD Corp</div>
+    <div class="partner-card">MBOT CPD</div>
+    <div class="partner-card">Technology Vendors</div>
+    <div class="partner-card">SIRIM</div>
+  </div>
+
+  <div class="calendar-title">
+    <h2>Training Calendar</h2>
+    <div class="calendar-note">Click any training box to view general information</div>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="training-card" onclick="showTraining('flow-basic')">
+      <div class="month">July 2026 · Kuala Lumpur</div>
+      <h3>Flow Measurement & Metering Fundamentals</h3>
+      <div class="training-meta">
+        <span>1–2 July 2026</span>
+        <span>Element Hotel Kuala Lumpur</span>
+        <span>9:00 AM – 5:00 PM</span>
+      </div>
+      <span class="level">Beginner Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+
+    <div class="training-card" onclick="showTraining('sarawak')">
+      <div class="month">August 2026 · Sarawak</div>
+      <h3>Flow Measurement & Metering Fundamentals</h3>
+      <div class="training-meta">
+        <span>Target: PETROS & Sarawak Industry</span>
+        <span>Venue: To be confirmed</span>
+        <span>2-Day Training</span>
+      </div>
+      <span class="level">Beginner Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+
+    <div class="training-card" onclick="showTraining('advanced-flow')">
+      <div class="month">September 2026 · Kuala Lumpur</div>
+      <h3>Advanced Flow Measurement & Diagnostics</h3>
+      <div class="training-meta">
+        <span>Advanced technical session</span>
+        <span>Venue: To be confirmed</span>
+        <span>2-Day Training</span>
+      </div>
+      <span class="level">Advanced Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+
+    <div class="training-card" onclick="showTraining('instrument')">
+      <div class="month">October 2026 · Johor</div>
+      <h3>Instrumentation Fundamentals</h3>
+      <div class="training-meta">
+        <span>Instrument engineers & technicians</span>
+        <span>Venue: To be confirmed</span>
+        <span>2-Day Training</span>
+      </div>
+      <span class="level">Foundation Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+
+    <div class="training-card" onclick="showTraining('ai')">
+      <div class="month">November 2026 · Kuala Lumpur</div>
+      <h3>Industrial AI & Industry 5.0</h3>
+      <div class="training-meta">
+        <span>Digital transformation focus</span>
+        <span>Venue: To be confirmed</span>
+        <span>1–2 Day Program</span>
+      </div>
+      <span class="level">Digital Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+
+    <div class="training-card" onclick="showTraining('custody')">
+      <div class="month">December 2026 · Terengganu</div>
+      <h3>Custody Transfer & Metering Systems</h3>
+      <div class="training-meta">
+        <span>Oil & gas measurement focus</span>
+        <span>Venue: To be confirmed</span>
+        <span>2-Day Training</span>
+      </div>
+      <span class="level">Specialist Module</span>
+      <div class="click-text">View details →</div>
+    </div>
+  </div>
+
+  <div id="infoPanel" class="info-panel">
+    <h2 id="infoTitle">Training Title</h2>
+    <p id="infoSubtitle" class="info-sub">General training information will appear here.</p>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <small>Date</small>
+        <strong id="infoDate">-</strong>
+      </div>
+      <div class="info-box">
+        <small>Location</small>
+        <strong id="infoLocation">-</strong>
+      </div>
+      <div class="info-box">
+        <small>Level</small>
+        <strong id="infoLevel">-</strong>
+      </div>
+      <div class="info-box">
+        <small>Target Participants</small>
+        <strong id="infoTarget">-</strong>
+      </div>
+    </div>
+
+    <ul id="infoBullets"></ul>
+
+    <button class="close-btn" onclick="closePanel()">Close</button>
+  </div>
+</section>
+
+<script>
+  const trainingData = {
+    "flow-basic": {
+      title: "Flow Measurement & Metering Fundamentals",
+      subtitle: "A beginner-level technical program covering the essential principles, technologies and practical applications of industrial flow measurement.",
+      date: "1–2 July 2026",
+      location: "Element Hotel Kuala Lumpur",
+      level: "Beginner Module",
+      target: "Engineers, Technicians, Executives, New Technical Staff",
+      bullets: [
+        "Introduction to flow measurement and metering principles",
+        "Differential pressure, positive displacement, velocity and mass flow meters",
+        "Basic installation requirements and common field issues",
+        "Technology sharing sessions by selected vendors",
+        "Rapid fire knowledge sessions by academic and industry speakers"
+      ]
+    },
+    "sarawak": {
+      title: "Flow Measurement & Metering Fundamentals — Sarawak Edition",
+      subtitle: "A regional edition designed for Sarawak-based industry participants, with focus on practical metering applications for oil, gas and energy operations.",
+      date: "August 2026",
+      location: "Sarawak, venue to be confirmed",
+      level: "Beginner Module",
+      target: "PETROS, Sarawak industry engineers and technical teams",
+      bullets: [
+        "Fundamental flow measurement principles",
+        "Practical metering applications for plant and field operations",
+        "Vendor technology showcase",
+        "Networking between local industry and technology providers"
+      ]
+    },
+    "advanced-flow": {
+      title: "Advanced Flow Measurement & Diagnostics",
+      subtitle: "A continuation from the beginner module, focusing on diagnostics, uncertainty, metering performance and advanced troubleshooting.",
+      date: "September 2026",
+      location: "Kuala Lumpur, venue to be confirmed",
+      level: "Advanced Module",
+      target: "Experienced engineers, metering specialists and technical authorities",
+      bullets: [
+        "Advanced meter diagnostics and performance monitoring",
+        "Measurement uncertainty and error sources",
+        "Advanced troubleshooting of metering systems",
+        "Case studies from industrial applications"
+      ]
+    },
+    "instrument": {
+      title: "Instrumentation Fundamentals",
+      subtitle: "A practical foundation program for engineers and technicians involved in industrial instrumentation and control systems.",
+      date: "October 2026",
+      location: "Johor, venue to be confirmed",
+      level: "Foundation Module",
+      target: "Instrument engineers, technicians and maintenance teams",
+      bullets: [
+        "Pressure, temperature, level and flow measurement basics",
+        "Signal transmission and calibration fundamentals",
+        "Control valve and final element basics",
+        "Common instrument failures and troubleshooting"
+      ]
+    },
+    "ai": {
+      title: "Industrial AI & Industry 5.0",
+      subtitle: "A digital technology program introducing practical AI, automation and human-centric Industry 5.0 applications for industrial environments.",
+      date: "November 2026",
+      location: "Kuala Lumpur, venue to be confirmed",
+      level: "Digital Module",
+      target: "Engineers, managers, digital teams and transformation leaders",
+      bullets: [
+        "Introduction to Industrial AI and Industry 5.0",
+        "AI use cases in maintenance, reliability and operations",
+        "Human-centric digital transformation",
+        "Practical pathway for AI adoption in Malaysian industry"
+      ]
+    },
+    "custody": {
+      title: "Custody Transfer & Metering Systems",
+      subtitle: "A specialist training program on custody transfer principles, metering systems, compliance and measurement integrity.",
+      date: "December 2026",
+      location: "Terengganu, venue to be confirmed",
+      level: "Specialist Module",
+      target: "Metering engineers, hydrocarbon accounting teams and oil & gas professionals",
+      bullets: [
+        "Custody transfer system overview",
+        "Metering skid components and operation",
+        "Measurement integrity and verification concepts",
+        "Commercial impact of metering errors"
+      ]
+    }
+  };
+
+  function showTraining(key) {
+    const data = trainingData[key];
+    const panel = document.getElementById("infoPanel");
+
+    document.getElementById("infoTitle").textContent = data.title;
+    document.getElementById("infoSubtitle").textContent = data.subtitle;
+    document.getElementById("infoDate").textContent = data.date;
+    document.getElementById("infoLocation").textContent = data.location;
+    document.getElementById("infoLevel").textContent = data.level;
+    document.getElementById("infoTarget").textContent = data.target;
+
+    const bulletList = document.getElementById("infoBullets");
+    bulletList.innerHTML = "";
+    data.bullets.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      bulletList.appendChild(li);
+    });
+
+    panel.classList.add("active");
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closePanel() {
+    document.getElementById("infoPanel").classList.remove("active");
+  }
+</script>
+
+</body>
+</html>
