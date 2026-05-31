@@ -74,7 +74,7 @@ router.post("/register", async (req, res) => {
     await transporter.sendMail({
       from: `"MALTECH Registration" <${fromEmail}>`,
       to: data.company.picEmail,
-      cc: adminEmails.join(","),
+      bcc: adminEmails.join(","),
       subject: "Registration Received - MALTECH Flow Measurement & Metering Fundamentals",
       html: `
         <p>Dear ${data.company.picName},</p>
@@ -93,15 +93,15 @@ router.post("/register", async (req, res) => {
         <p>
           Our team will review your submission and contact you shortly
           regarding confirmation, invoicing and HRD Corp documentation
-          (if applicable).
+          if applicable.
         </p>
 
         <hr>
 
         <p>
-          Event Date: 1–2 July 2026<br>
-          Venue: Element Hotel Kuala Lumpur<br>
-          Fee: RM1,750 per participant
+          <strong>Event Date:</strong> 1–2 July 2026<br>
+          <strong>Venue:</strong> Element Hotel Kuala Lumpur<br>
+          <strong>Fee:</strong> RM1,750 per participant
         </p>
 
         <p>
@@ -111,6 +111,66 @@ router.post("/register", async (req, res) => {
         </p>
       `
     });
+
+    for (const participant of data.participants) {
+      if (!participant.email) continue;
+
+      await transporter.sendMail({
+        from: `"MALTECH Secretariat" <${fromEmail}>`,
+        to: participant.email,
+        bcc: adminEmails.join(","),
+        subject: "Participant Registration Notification - MALTECH Flow Measurement & Metering Fundamentals",
+        html: `
+          <p>Dear ${participant.fullName},</p>
+
+          <p>
+            This email is to inform you that
+            <strong>${data.company.picName}</strong>
+            from
+            <strong>${data.company.companyName}</strong>
+            has identified and registered you as a participant for the following training program:
+          </p>
+
+          <hr>
+
+          <p>
+            <strong>Program:</strong> Flow Measurement & Metering Fundamentals<br>
+            <strong>Series:</strong> Malaysian Technology Series (MALTECH)<br>
+            <strong>Date:</strong> 1–2 July 2026<br>
+            <strong>Venue:</strong> Element Hotel Kuala Lumpur
+          </p>
+
+          <hr>
+
+          <p>
+            <strong>Your Submitted Details</strong><br>
+            Name: ${participant.fullName}<br>
+            Designation: ${participant.designation || "-"}<br>
+            Department: ${participant.department || "-"}<br>
+            Mobile: ${participant.mobile || "-"}<br>
+            Vegetarian Meal: ${participant.vegetarian || "No"}
+          </p>
+
+          <p>
+            Please note that this email serves as a registration notification only.
+            Further information regarding attendance confirmation, invoicing,
+            HRD Corp matters if applicable, and event logistics will be coordinated
+            through your company representative.
+          </p>
+
+          <p>
+            If you believe you have received this email in error,
+            please contact your company representative directly.
+          </p>
+
+          <p>
+            Regards,<br>
+            MALTECH Secretariat<br>
+            Asianloop × META
+          </p>
+        `
+      });
+    }
 
     return res.json({
       success: true
