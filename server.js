@@ -24,7 +24,7 @@ if (MONGODB_URI) {
       dbName: "asianloop_career"
     })
     .then(() => {
-      console.log("MongoDB connected: asianloop_hiring");
+      console.log("MongoDB connected: asianloop_career");
     })
     .catch((err) => {
       console.error("MongoDB connection error:", err.message);
