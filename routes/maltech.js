@@ -21,10 +21,11 @@ router.post("/register", async (req, res) => {
       process.env.SMTP_FROM ||
       process.env.SMTP_USER;
 
-    const adminEmails = [
-      "info@asian-loop.com",
-      "dylarazak@oilandgasmeta.com"
-    ];
+const adminEmails = [
+  "info@asian-loop.com",
+  "dylarazak@oilandgasmeta.com",
+  "admin@oilandgasmeta.com"
+];
 
     let participantHtml = "";
 
