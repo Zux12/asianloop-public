@@ -20,6 +20,39 @@ router.post("/register", async (req, res) => {
 
     const data = req.body;
 
+for (const p of data.participants) {
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SPREADSHEET_ID,
+    range: "Sheet1!A:O",
+    valueInputOption: "USER_ENTERED",
+    requestBody: {
+      values: [[
+        new Date().toLocaleString(),
+
+        data.company.companyName,
+        data.company.companyAddress,
+
+        data.company.picName,
+        data.company.picDesignation,
+        data.company.picEmail,
+        data.company.picPhone,
+
+        data.company.hrdClaim,
+
+        p.fullName,
+        p.idNumber,
+        p.designation,
+        p.department,
+        p.email,
+        p.mobile,
+        p.vegetarian
+      ]]
+    }
+  });
+
+}
+    
     const fromEmail =
       process.env.SMTP_FROM ||
       process.env.SMTP_USER;
