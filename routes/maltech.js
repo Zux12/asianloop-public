@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
+const sheets = require("../googleSheet");
+const SPREADSHEET_ID = process.env.MALTECH_SHEET_ID;
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT || 465),
