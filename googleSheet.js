@@ -1,7 +1,11 @@
 const { google } = require("googleapis");
 
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+
+serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
+
 const auth = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
+  credentials: serviceAccount,
   scopes: [
     "https://www.googleapis.com/auth/spreadsheets"
   ]
